@@ -1,17 +1,19 @@
+import { Link } from "react-router-dom";
+
 const Navbar = () => {
   const navLinks = (
     <>
       <li>
-        <a>Home</a>
+        <Link to="/">Home</Link>
       </li>
       <li>
-        <a>Pet Listing</a>
+        <Link to="/pet-listing">Pet Listing</Link>
       </li>
       <li>
-        <a>Donation Campaigns</a>
+        <Link to="/campaigns">Donation Campaigns</Link>
       </li>
       <li>
-        <a>Login</a>
+        <Link to="/login">Login</Link>
       </li>
     </>
   );
@@ -48,6 +50,7 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navLinks}</ul>
       </div>
+      {/* profile pic and dropdown menu */}
       <div className="navbar-end">
         <a className="btn">Button</a>
       </div>
