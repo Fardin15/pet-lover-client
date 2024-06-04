@@ -1,6 +1,16 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContext);
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {})
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const navLinks = (
     <>
       <li>
@@ -12,9 +22,17 @@ const Navbar = () => {
       <li>
         <Link to="/campaigns">Donation Campaigns</Link>
       </li>
-      <li>
-        <Link to="/login">Login</Link>
-      </li>
+      {user ? (
+        <>
+          <button onClick={handleLogOut} className="btn">
+            Logout
+          </button>
+        </>
+      ) : (
+        <li>
+          <Link to="/login">Login</Link>
+        </li>
+      )}
     </>
   );
 
@@ -52,7 +70,27 @@ const Navbar = () => {
       </div>
       {/* profile pic and dropdown menu */}
       <div className="navbar-end">
-        <a className="btn">Button</a>
+        <details className="dropdown dropdown-end">
+          <summary className="m-1">
+            <img
+              className="rounded-full w-10 h-10 tooltip tooltip-bottom"
+              src={
+                user?.photoURL
+                  ? user?.photoURL
+                  : "https://i.postimg.cc/ZKVHTsbW/profile.jpg"
+              }
+              alt=""
+            />
+          </summary>
+          <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+            <li>
+              <a>Name</a>
+            </li>
+            <li>
+              <a>Dashboard</a>
+            </li>
+          </ul>
+        </details>
       </div>
     </div>
   );
