@@ -11,8 +11,9 @@ import Swal from "sweetalert2";
 const Login = () => {
   const { user, setUser, signIn } = useContext(AuthContext);
   const [disabled, setDisabled] = useState(true);
-  const location = useLocation();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   useEffect(() => {
     loadCaptchaEnginge(6);
   }, []);
@@ -30,7 +31,8 @@ const Login = () => {
           icon: "success",
           text: "logged in successfully !!",
         });
-        e.target.reset();
+        form.reset();
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         console.log(error);

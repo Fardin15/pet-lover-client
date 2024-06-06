@@ -20,11 +20,12 @@ const Register = () => {
 
   const onSubmit = (data) => {
     console.log(data);
-    // uploading image
+
     createUser(data.email, data.password).then(async (result) => {
       console.log(result.user);
 
       if (result.user) {
+        // uploading image
         const imageFile = { image: data.image[0] };
         const res = await axios.post(image_hosting_api, imageFile, {
           headers: {
@@ -33,7 +34,7 @@ const Register = () => {
         });
         Swal.fire({
           icon: "success",
-          text: "Registered successfully.",
+          text: "Registered successfully..Now Please Login...!",
         });
         if (res.data.success) {
           updateProfile(result.user, {
@@ -46,7 +47,9 @@ const Register = () => {
               logOut();
               navigate("/login");
             })
-            .catch();
+            .catch((error) => {
+              console.log(error);
+            });
         }
       }
     });
