@@ -7,6 +7,13 @@ import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import PrivateRoute from "./PrivateRoute";
 import Error from "../Components/Error";
+import Dashboard from "../Layouts/Dashboard/Dashboard";
+import AddPet from "../Pages/Dashboard/AddPet/AddPet";
+import MyAddedPets from "../Pages/Dashboard/MyAddedPets/MyAddedPets";
+import AdoptionRequest from "../Pages/Dashboard/AdoptionRequest/AdoptionRequest";
+import CreateCampaign from "../Pages/Dashboard/CreateCampaign/CreateCampaign";
+import MyCampaign from "../Pages/Dashboard/MyCampaign/MyCampaign";
+import MyDonations from "../Pages/Dashboard/MyDonations/MyDonations";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +48,40 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register></Register>,
+      },
+    ],
+  },
+  {
+    path: "dashboard",
+    element: (
+      <PrivateRoute>
+        <Dashboard></Dashboard>
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        path: "addPet",
+        element: <AddPet></AddPet>,
+      },
+      {
+        path: "addedPets",
+        element: <MyAddedPets></MyAddedPets>,
+      },
+      {
+        path: "adoptionRequest",
+        element: <AdoptionRequest></AdoptionRequest>,
+      },
+      {
+        path: "createCampaign",
+        element: <CreateCampaign></CreateCampaign>,
+      },
+      {
+        path: "myCampaign",
+        element: <MyCampaign></MyCampaign>,
+      },
+      {
+        path: "myDonations",
+        element: <MyDonations></MyDonations>,
       },
     ],
   },

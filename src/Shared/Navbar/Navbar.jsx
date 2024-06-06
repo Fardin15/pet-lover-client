@@ -23,11 +23,7 @@ const Navbar = () => {
         <Link to="/campaigns">Donation Campaigns</Link>
       </li>
       {user ? (
-        <>
-          <button onClick={handleLogOut} className="btn">
-            Logout
-          </button>
-        </>
+        <></>
       ) : (
         <li>
           <Link to="/login">Login</Link>
@@ -84,10 +80,12 @@ const Navbar = () => {
           </summary>
           <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
             <li>
-              <a>Name</a>
+              <button onClick={handleLogOut} className="btn">
+                Logout
+              </button>
             </li>
             <li>
-              <a>Dashboard</a>
+              <Link to="/dashboard/addPet">Dashboard</Link>
             </li>
           </ul>
         </details>
