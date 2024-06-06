@@ -6,11 +6,12 @@ import Campaigns from "../Pages/Campaigns/Campaigns";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import PrivateRoute from "./PrivateRoute";
+import Error from "../Components/Error";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    errorElement: <p>error</p>,
+    errorElement: <Error></Error>,
     element: <Main></Main>,
     children: [
       {
