@@ -3,6 +3,7 @@ import { FaFacebook, FaGithub, FaGoogle } from "react-icons/fa";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
+import Swal from "sweetalert2";
 
 const SocialLogin = () => {
   const { signInWithGoogle } = useAuth();
@@ -17,8 +18,12 @@ const SocialLogin = () => {
       };
       axiosPublic.post("/users", userInfo).then((res) => {
         console.log(res.data);
-        navigate("/");
       });
+      Swal.fire({
+        icon: "success",
+        text: "logged in successfully !!",
+      });
+      navigate("/");
     });
   };
   return (

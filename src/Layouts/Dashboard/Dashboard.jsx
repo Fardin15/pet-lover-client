@@ -1,6 +1,8 @@
 import { NavLink, Outlet } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth";
 
 const Dashboard = () => {
+  const { logOut } = useAuth();
   return (
     <div className="flex">
       {/* dashboard side bar */}
@@ -26,11 +28,14 @@ const Dashboard = () => {
           <li>
             <NavLink to="/dashboard/myDonations">My Donations</NavLink>
           </li>
+          <div className="divider"></div>
           <li>
             <NavLink to="/">Home</NavLink>
           </li>
           <li>
-            <button className="btn">LogOut</button>
+            <button onClick={logOut} className="btn">
+              LogOut
+            </button>
           </li>
         </ul>
       </div>

@@ -5,10 +5,13 @@ import { AuthContext } from "../../Providers/AuthProvider";
 import { updateProfile } from "firebase/auth";
 import axios from "axios";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import SocialLogin from "../../Components/SocialLogin/SocialLogin";
 
 const image_hosting_key = "54fbb8339a2c997485f26254a446380d";
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 const Register = () => {
+  const axiosPublic = useAxiosPublic();
   const {
     register,
     reset,
@@ -32,10 +35,6 @@ const Register = () => {
             "content-type": "multipart/form-data",
           },
         });
-        Swal.fire({
-          icon: "success",
-          text: "Registered successfully..Now Please Login...!",
-        });
         if (res.data.success) {
           updateProfile(result.user, {
             displayName: data?.name,
@@ -43,9 +42,22 @@ const Register = () => {
           })
             .then(() => {
               console.log("User Updated Successfully");
-              reset();
-              logOut();
-              navigate("/login");
+              const userInfo = {
+                name: data?.name,
+                email: data.email,
+              };
+              axiosPublic.post("/users", userInfo).then((res) => {
+                if (res.data.insertedId) {
+                  console.log("user added");
+                  Swal.fire({
+                    icon: "success",
+                    text: "Registered successfully..Now Please Login...!",
+                  });
+                  reset();
+                  logOut();
+                  navigate("/");
+                }
+              });
             })
             .catch((error) => {
               console.log(error);
@@ -158,14 +170,6 @@ const Register = () => {
                     Forgot password?
                   </a>
                 </label>
-                <p className="text-center text-[#D1A054] text-xl">
-                  <small className="font-medium">
-                    Already registered?{" "}
-                    <Link className="font-bold" to="/login">
-                      Go to Login
-                    </Link>
-                  </small>
-                </p>
               </div>
               <div className="form-control mt-6">
                 <input
@@ -175,6 +179,18 @@ const Register = () => {
                 />
               </div>
             </form>
+            <p className="text-center font-bold text-xl text-[#D1A054]">
+              <small>
+                Already registered?{" "}
+                <Link to="/register" className="text-[#D1A054]">
+                  Go to Login
+                </Link>
+              </small>
+            </p>
+            <p className="text-center font-medium text-[#444444] text-xl mt-6">
+              or sign in with
+            </p>
+            <SocialLogin></SocialLogin>
           </div>
         </div>
       </div>
