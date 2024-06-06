@@ -7,6 +7,7 @@ import {
 import { AuthContext } from "../../Providers/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import SocialLogin from "../../Components/SocialLogin/SocialLogin";
 
 const Login = () => {
   const { user, setUser, signIn } = useContext(AuthContext);
@@ -115,14 +116,6 @@ const Login = () => {
                 required
               />
             </div>
-            <p className="text-center text-[#D1A054] text-xl">
-              <small className="font-medium">
-                New Here?
-                <Link className="font-bold" to="/register">
-                  Please Register
-                </Link>
-              </small>
-            </p>
             <div className="form-control mt-6">
               <input
                 disabled={disabled}
@@ -132,6 +125,18 @@ const Login = () => {
               />
             </div>
           </form>
+          <p className="text-center font-bold text-xl text-[#D1A054]">
+            <small>
+              New Here?{" "}
+              <Link to="/register" className="text-[#D1A054]">
+                Create an Account
+              </Link>
+            </small>
+          </p>
+          <p className="text-center font-medium text-[#444444] text-xl mt-6">
+            or sign in with
+          </p>
+          <SocialLogin></SocialLogin>
         </div>
       </div>
     </div>

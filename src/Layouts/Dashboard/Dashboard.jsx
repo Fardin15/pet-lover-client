@@ -26,6 +26,12 @@ const Dashboard = () => {
           <li>
             <NavLink to="/dashboard/myDonations">My Donations</NavLink>
           </li>
+          <li>
+            <NavLink to="/">Home</NavLink>
+          </li>
+          <li>
+            <button className="btn">LogOut</button>
+          </li>
         </ul>
       </div>
       {/* dashboard content */}
