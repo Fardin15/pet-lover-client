@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const Users = () => {
   const axiosSecure = useAxiosSecure();
-  const { data: users = [] } = useQuery({
+  const { data: users = [], refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
       const res = await axiosSecure.get("/users", {
@@ -12,6 +13,22 @@ const Users = () => {
       return res.data;
     },
   });
+
+  const handleMakeAdmin = (user) => {
+    axiosSecure.patch(`/users/admin/${user._id}`).then((res) => {
+      console.log(res.data);
+      if (res.data.deletedCount > 0) {
+        refetch();
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: `${user?.name} is an Admin Now.`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
+  };
   return (
     <div>
       <h1 className="text-3xl">All Users {users.length}</h1>
@@ -24,7 +41,7 @@ const Users = () => {
               <th>Profile</th>
               <th>Name</th>
               <th>Email</th>
-              <th>Action</th>
+              <th>Role</th>
               <th></th>
             </tr>
           </thead>
@@ -38,7 +55,7 @@ const Users = () => {
                     <div className="avatar">
                       <div className="mask mask-squircle w-12 h-12">
                         <img
-                          src={user.photo}
+                          src={user?.photo}
                           alt="Avatar Tailwind CSS Component"
                         />
                       </div>
@@ -48,7 +65,16 @@ const Users = () => {
                 <td>{user?.name}</td>
                 <td>{user?.email}</td>
                 <th>
-                  <button className="btn btn-ghost btn-xs">Make Admin</button>
+                  {user.role === "admin" ? (
+                    "Admin"
+                  ) : (
+                    <button
+                      onClick={() => handleMakeAdmin(user)}
+                      className="btn btn-ghost btn-xs"
+                    >
+                      Make Admin
+                    </button>
+                  )}
                 </th>
               </tr>
             ))}

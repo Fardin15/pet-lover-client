@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { updateProfile } from "firebase/auth";
-import axios from "axios";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import SocialLogin from "../../Components/SocialLogin/SocialLogin";
@@ -30,7 +29,7 @@ const Register = () => {
       if (result.user) {
         // uploading image
         const imageFile = { image: data.image[0] };
-        const res = await axios.post(image_hosting_api, imageFile, {
+        const res = await axiosPublic.post(image_hosting_api, imageFile, {
           headers: {
             "content-type": "multipart/form-data",
           },
