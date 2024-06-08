@@ -1,11 +1,57 @@
 import { useForm } from "react-hook-form";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import { useNavigate } from "react-router-dom";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
+const image_hosting_key = "54fbb8339a2c997485f26254a446380d";
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 const AddPet = () => {
   const { register, handleSubmit, reset } = useForm();
+  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    console.log(data);
-    reset();
+    // post date
+    const today = new Date();
+    const day = today.getDate();
+    const month = today.getMonth() + 1;
+    const year = today.getFullYear();
+    const date = `${day}/${month}/${year}`;
+    // post image to get url
+    const imageFile = { image: data.image[0] };
+    const res = await axiosPublic.post(image_hosting_api, imageFile, {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    });
+
+    if (res.data.success) {
+      const petDetails = {
+        name: data.name,
+        age: data.age,
+        category: data.category,
+        location: data.location,
+        shortDescription: data.shortDescription,
+        longDescription: data.longDescription,
+        postDate: date,
+        image: res.data.data.display_url,
+      };
+      // post pet in database
+      const petRes = await axiosSecure.post("/pets", petDetails);
+      if (petRes.data.insertedId) {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: `${data.name} added for adoption.`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        reset();
+        navigate("/dashboard/addedPets");
+      }
+    }
   };
   return (
     <div>
@@ -20,7 +66,7 @@ const AddPet = () => {
               </div>
               <input
                 type="text"
-                placeholder="Recipe Name"
+                placeholder="Pet Name"
                 {...register("name", { required: true })}
                 className="input input-bordered w-full"
               />
@@ -47,7 +93,7 @@ const AddPet = () => {
                 {...register("category", { required: true })}
                 className="select select-bordered w-full"
               >
-                <option disabled value={"default"}>
+                <option disabled value="default">
                   Select a category
                 </option>
                 <option value="cat">Cats</option>

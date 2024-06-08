@@ -17,7 +17,7 @@ const Users = () => {
   const handleMakeAdmin = (user) => {
     axiosSecure.patch(`/users/admin/${user._id}`).then((res) => {
       console.log(res.data);
-      if (res.data.deletedCount > 0) {
+      if (res.data.modifiedCount > 0) {
         refetch();
         Swal.fire({
           position: "top-end",
@@ -29,6 +29,7 @@ const Users = () => {
       }
     });
   };
+
   return (
     <div>
       <h1 className="text-3xl">All Users {users.length}</h1>
