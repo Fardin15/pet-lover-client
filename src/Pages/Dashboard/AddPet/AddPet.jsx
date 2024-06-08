@@ -3,15 +3,16 @@ import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import useAuth from "../../../Hooks/useAuth";
 
 const image_hosting_key = "54fbb8339a2c997485f26254a446380d";
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 const AddPet = () => {
+  const { user } = useAuth();
   const { register, handleSubmit, reset } = useForm();
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
-
   const onSubmit = async (data) => {
     // post date
     const today = new Date();
@@ -29,6 +30,7 @@ const AddPet = () => {
 
     if (res.data.success) {
       const petDetails = {
+        email: user?.email,
         name: data.name,
         age: data.age,
         category: data.category,

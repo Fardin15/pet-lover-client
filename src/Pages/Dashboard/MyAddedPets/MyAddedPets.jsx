@@ -1,4 +1,21 @@
+import { useQuery } from "@tanstack/react-query";
+import useAuth from "../../../Hooks/useAuth";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+
 const MyAddedPets = () => {
+  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
+  const { data: myPets = [], refetch } = useQuery({
+    queryKey: ["myPets"],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/my-pets/${user?.email}`, {
+        withCredentials: true,
+      });
+      return res.data;
+    },
+  });
+  console.log(myPets);
+
   return (
     <div>
       <h1 className="text-3xl text-center mb-10">My Added Pets</h1>

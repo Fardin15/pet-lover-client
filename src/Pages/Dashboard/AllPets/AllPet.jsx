@@ -30,7 +30,7 @@ const AllPet = () => {
             </tr>
           </thead>
           <tbody>
-            {/* row 1 */}
+            {/* row  */}
             {allPets.map((pet, index) => (
               <tr key={index}>
                 <th>{index + 1}</th>
