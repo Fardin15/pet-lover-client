@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const AllPet = () => {
   const axiosSecure = useAxiosSecure();
@@ -12,6 +13,33 @@ const AllPet = () => {
       return res.data;
     },
   });
+
+  // delete pet
+  const handleDeleteItem = (pet) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Are you sure to delete this item?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await axiosSecure.delete(`/pet/${pet._id}`);
+        if (res.data.deletedCount > 0) {
+          refetch();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: `${pet?.name} has been deleted`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      }
+    });
+  };
   return (
     <div>
       <h1 className="text-3xl text-center mb-10">All Pets</h1>
@@ -51,13 +79,18 @@ const AllPet = () => {
                   </div>
                 </td>
                 <td>
-                  <button>Update</button>
+                  <button className="btn">Update</button>
                 </td>
                 <td>
-                  <button>Delete</button>
+                  <button
+                    onClick={() => handleDeleteItem(pet)}
+                    className="btn btn-bs bg-[#d84e4e]"
+                  >
+                    Delete
+                  </button>
                 </td>
                 <td>
-                  <button>Adopted</button>
+                  <button className="btn">Adopted</button>
                 </td>
 
                 <th></th>

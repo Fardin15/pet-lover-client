@@ -6,6 +6,12 @@ import { GiHamburgerMenu } from "react-icons/gi";
 const Dashboard = () => {
   const { logOut } = useAuth();
   const [isAdmin] = useAdmin();
+  const handleLinkClick = () => {
+    const drawerToggle = document.getElementById("my-drawer-2");
+    if (drawerToggle) {
+      drawerToggle.checked = false;
+    }
+  };
   return (
     <div>
       <div className="drawer lg:drawer-open">
@@ -33,64 +39,103 @@ const Dashboard = () => {
             {isAdmin ? (
               <>
                 <li>
-                  <NavLink to="/dashboard/users">Users</NavLink>
+                  <NavLink onClick={handleLinkClick} to="/dashboard/users">
+                    Users
+                  </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashboard/addPet">Add A Pet</NavLink>
+                  <NavLink onClick={handleLinkClick} to="/dashboard/addPet">
+                    Add A Pet
+                  </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashboard/addedPets">My Added Pets</NavLink>
+                  <NavLink onClick={handleLinkClick} to="/dashboard/addedPets">
+                    My Added Pets
+                  </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashboard/allPets">All Pets</NavLink>
+                  <NavLink onClick={handleLinkClick} to="/dashboard/allPets">
+                    All Pets
+                  </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashboard/adoptionRequest">
+                  <NavLink
+                    onClick={handleLinkClick}
+                    to="/dashboard/adoptionRequest"
+                  >
                     Adoption Request
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashboard/createCampaign">
+                  <NavLink
+                    onClick={handleLinkClick}
+                    to="/dashboard/createCampaign"
+                  >
                     Create Donation Campaign
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashboard/myCampaign">
+                  <NavLink onClick={handleLinkClick} to="/dashboard/myCampaign">
                     My Donation Campaigns
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashboard/myDonations">My Donations</NavLink>
+                  <NavLink
+                    onClick={handleLinkClick}
+                    to="/dashboard/myDonations"
+                  >
+                    My Donations
+                  </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashboard/allDonations">All Donations</NavLink>
+                  <NavLink
+                    onClick={handleLinkClick}
+                    to="/dashboard/allDonations"
+                  >
+                    All Donations
+                  </NavLink>
                 </li>
               </>
             ) : (
               <>
                 <li>
-                  <NavLink to="/dashboard/addPet">Add A Pet</NavLink>
+                  <NavLink onClick={handleLinkClick} to="/dashboard/addPet">
+                    Add A Pet
+                  </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashboard/addedPets">My Added Pets</NavLink>
+                  <NavLink onClick={handleLinkClick} to="/dashboard/addedPets">
+                    My Added Pets
+                  </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashboard/adoptionRequest">
+                  <NavLink
+                    onClick={handleLinkClick}
+                    to="/dashboard/adoptionRequest"
+                  >
                     Adoption Request
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashboard/createCampaign">
+                  <NavLink
+                    onClick={handleLinkClick}
+                    to="/dashboard/createCampaign"
+                  >
                     Create Donation Campaign
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashboard/myCampaign">
+                  <NavLink onClick={handleLinkClick} to="/dashboard/myCampaign">
                     My Donation Campaigns
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashboard/myDonations">My Donations</NavLink>
+                  <NavLink
+                    onClick={handleLinkClick}
+                    to="/dashboard/myDonations"
+                  >
+                    My Donations
+                  </NavLink>
                 </li>
               </>
             )}
