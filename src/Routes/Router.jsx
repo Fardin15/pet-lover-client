@@ -18,6 +18,7 @@ import Users from "../Pages/Dashboard/Users/Users";
 import AllPet from "../Pages/Dashboard/AllPets/AllPet";
 import AllDonation from "../Pages/Dashboard/AllDonations/AllDonation";
 import AdminRoute from "./AdminRoute";
+import UpdatePet from "../Pages/Dashboard/UpdatePet/UpdatePet";
 
 const router = createBrowserRouter([
   {
@@ -111,6 +112,11 @@ const router = createBrowserRouter([
             <AllDonation></AllDonation>
           </AdminRoute>
         ),
+      },
+      {
+        path: "update/:id",
+        element: <UpdatePet></UpdatePet>,
+        loader: ({ params }) => fetch(`http://localhost:5000/pet/${params.id}`),
       },
     ],
   },

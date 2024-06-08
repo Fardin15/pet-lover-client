@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const MyAddedPets = () => {
   const { user } = useAuth();
@@ -82,7 +83,9 @@ const MyAddedPets = () => {
                   </div>
                 </td>
                 <td>
-                  <button className="btn">Update</button>
+                  <Link to={`/dashboard/update/${pet._id}`}>
+                    <button className="btn">Update</button>
+                  </Link>
                 </td>
                 <td>
                   <button
