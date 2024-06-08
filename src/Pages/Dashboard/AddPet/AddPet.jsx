@@ -55,7 +55,7 @@ const AddPet = () => {
   };
   return (
     <div>
-      <h1>add a pet</h1>
+      <h1 className="text-3xl">Add a pet</h1>
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col md:flex-row gap-6">
