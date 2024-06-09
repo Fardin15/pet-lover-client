@@ -56,6 +56,7 @@ const PetDetails = () => {
         timer: 1500,
       });
       form.reset();
+      navigate("/pet-listing");
     }
   };
 
