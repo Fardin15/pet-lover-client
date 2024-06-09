@@ -1,11 +1,8 @@
-import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { Link } from "react-router-dom";
 
 const PetListing = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("default");
   const axiosSecure = useAxiosSecure();
   const {
     data: availablePets = [],
@@ -21,26 +18,8 @@ const PetListing = () => {
     },
   });
 
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
-
-  const handleCategoryChange = (e) => {
-    setSelectedCategory(e.target.value);
-  };
-
-  const filteredPets = availablePets.filter((pet) => {
-    return (
-      (searchTerm === "" ||
-        pet.name.toLowerCase().includes(searchTerm.toLowerCase())) &&
-      (selectedCategory === "default" || pet.category === selectedCategory)
-    );
-  });
-
   if (isPending) {
-    return (
-      <span className="loading loading-infinity loading-lg text-center"></span>
-    );
+    <span className="loading loading-infinity loading-lg text-center"></span>;
   }
 
   return (
@@ -53,23 +32,18 @@ const PetListing = () => {
               <input
                 className="input input-bordered join-item"
                 placeholder="Search"
-                value={searchTerm}
-                onChange={handleSearchChange}
               />
             </div>
           </div>
           <div className="indicator">
-            <button className="btn join-item" onClick={refetch}>
-              Search
-            </button>
+            <button className="btn join-item">Search</button>
           </div>
         </div>
         {/* dropdown */}
         <div>
           <select
-            value={selectedCategory}
+            defaultValue="default"
             className="select select-bordered w-full"
-            onChange={handleCategoryChange}
           >
             <option disabled value="default">
               Select a category
@@ -84,12 +58,12 @@ const PetListing = () => {
       </div>
       {/* pets */}
       <div className="mt-11 grid grid-cols-1 md:grid-cols-3 gap-8">
-        {filteredPets.map((pet, index) => (
+        {availablePets.map((pet, index) => (
           <div key={index} className="card bg-base-100 shadow-xl">
             <figure className="px-10 pt-10">
               <img
                 src={pet.image}
-                alt="Pet"
+                alt="Shoes"
                 className="rounded-xl w-[280px] h-[180px]"
               />
             </figure>

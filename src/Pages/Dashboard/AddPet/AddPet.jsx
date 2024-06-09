@@ -20,6 +20,7 @@ const AddPet = () => {
     const month = today.getMonth() + 1;
     const year = today.getFullYear();
     const date = `${day}/${month}/${year}`;
+    const adoptionStatus = false;
     // post image to get url
     const imageFile = { image: data.image[0] };
     const res = await axiosPublic.post(image_hosting_api, imageFile, {
@@ -30,6 +31,7 @@ const AddPet = () => {
 
     if (res.data.success) {
       const petDetails = {
+        ownerName: user?.displayName,
         email: user?.email,
         name: data.name,
         age: data.age,
@@ -39,6 +41,7 @@ const AddPet = () => {
         longDescription: data.longDescription,
         postDate: date,
         image: res.data.data.display_url,
+        adoptionStatus,
       };
       // post pet in database
       const petRes = await axiosSecure.post("/pets", petDetails);
