@@ -4,7 +4,11 @@ import Swal from "sweetalert2";
 
 const AllPet = () => {
   const axiosSecure = useAxiosSecure();
-  const { data: allPets = [], refetch } = useQuery({
+  const {
+    data: allPets = [],
+    refetch,
+    isPending,
+  } = useQuery({
     queryKey: ["allPets"],
     queryFn: async () => {
       const res = await axiosSecure.get("/pets", {
@@ -40,6 +44,10 @@ const AllPet = () => {
       }
     });
   };
+
+  if (isPending) {
+    <span className="loading loading-infinity loading-lg text-center"></span>;
+  }
   return (
     <div>
       <h1 className="text-3xl text-center mb-10">All Pets</h1>

@@ -19,6 +19,7 @@ import AllPet from "../Pages/Dashboard/AllPets/AllPet";
 import AllDonation from "../Pages/Dashboard/AllDonations/AllDonation";
 import AdminRoute from "./AdminRoute";
 import UpdatePet from "../Pages/Dashboard/UpdatePet/UpdatePet";
+import PetDetails from "../Pages/PetDetails/PetDetails";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,11 @@ const router = createBrowserRouter([
             <PetListing></PetListing>
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/details/:id",
+        element: <PetDetails></PetDetails>,
+        loader: ({ params }) => fetch(`http://localhost:5000/pet/${params.id}`),
       },
       {
         path: "/campaigns",
