@@ -1,24 +1,64 @@
-import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
+import Swal from "sweetalert2";
+import toast from "react-hot-toast";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const PetDetails = () => {
   const { user } = useAuth();
-  const location = useLocation();
+  const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
   const pet = useLoaderData();
   const {
+    ownerName,
     _id,
-    email,
+    email: ownerEmail,
     name,
     age,
-    category,
     location: ownerLocation,
     shortDescription,
     longDescription,
     postDate,
     image,
   } = pet || [];
-  console.log(pet);
+
+  //   const handleButtonDisable = () => {
+  //     console.log("you can not adopt");
+  //     if (user?.email === email) {
+  //       return toast.error("you can not adopt");
+  //     }
+  //   };
+
+  const handleForAdoption = async (e) => {
+    e.preventDefault();
+    if (user?.email === ownerEmail) {
+      return toast.error("You can't apply on your own post!!");
+    }
+    const form = e.target;
+    const phone = form.phone.value;
+    const requesterAddress = form.requesterAddress.value;
+    const adoptionData = {
+      requesterName: user?.displayName,
+      requesterEmail: user.email,
+      phone,
+      requesterAddress,
+      image,
+      name,
+      petId: _id,
+    };
+    const petRes = await axiosSecure.post("/adoption", adoptionData);
+    if (petRes.data.insertedId) {
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: `Your request has been added for adoption.`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      form.reset();
+    }
+  };
+
   return (
     <div>
       <div className="hero min-h-screen bg-base-200">
@@ -32,9 +72,11 @@ const PetDetails = () => {
               <img className="h-[350px] w-[390px]" src={image} alt="" />
               <div>
                 <p className="mb-2">
-                  <span className="font-medium">Owner:</span> Md Fardin
+                  <span className="font-medium">OwnerName:</span> {ownerName}
                 </p>
-
+                <p className="mb-2">
+                  <span className="font-medium">OwnerEmail:</span> {ownerEmail}
+                </p>
                 <p className="mb-2">
                   <span className="font-medium">Post For Adoption:</span>{" "}
                   {postDate}
@@ -81,14 +123,14 @@ const PetDetails = () => {
                       />
                     </div>
                     {/* adoption request form */}
-                    <form>
+                    <form onSubmit={handleForAdoption}>
                       <div className="mb-4">
                         <label className="block text-sm font-medium text-gray-700">
                           User Name
                         </label>
                         <input
                           type="text"
-                          value={user.displayName}
+                          value={user?.displayName}
                           disabled
                           className="input input-bordered w-full mt-1"
                         />
@@ -99,7 +141,7 @@ const PetDetails = () => {
                         </label>
                         <input
                           type="email"
-                          value={user.email}
+                          value={user?.email}
                           disabled
                           className="input input-bordered w-full mt-1"
                         />
@@ -110,6 +152,7 @@ const PetDetails = () => {
                         </label>
                         <input
                           type="tel"
+                          name="phone"
                           placeholder="Your Phone Number"
                           className="input input-bordered w-full mt-1"
                           required
@@ -121,13 +164,14 @@ const PetDetails = () => {
                         </label>
                         <input
                           type="text"
+                          name="requesterAddress"
                           placeholder="Your Address"
                           className="input input-bordered w-full mt-1"
                           required
                         />
                       </div>
                       <div className="flex justify-end">
-                        <button type="submit" className="btn btn-primary">
+                        <button type="submit" className={` btn btn-primary`}>
                           Submit
                         </button>
                       </div>
