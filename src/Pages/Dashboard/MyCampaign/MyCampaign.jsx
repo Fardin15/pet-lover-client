@@ -17,9 +17,7 @@ const MyCampaign = () => {
   });
   return (
     <div>
-      <h1 className="text-3xl text-center mb-10">
-        My donation campaign{myCampaigns.length}
-      </h1>
+      <h1 className="text-3xl text-center mb-10">My donation campaign</h1>
       <div className="overflow-x-auto">
         <table className="table">
           {/* head */}
@@ -54,7 +52,13 @@ const MyCampaign = () => {
                     </div>
                   </div>
                 </td>
-                <td>Progress Bar</td>
+                <td>
+                  <progress
+                    className="progress w-20"
+                    value={50}
+                    max={campaign.maxAmount}
+                  ></progress>
+                </td>
                 <td>
                   <Link to={`/dashboard/updateCampaign/${campaign._id}`}>
                     <button className="btn bg-blue-500">Edit</button>
@@ -64,7 +68,14 @@ const MyCampaign = () => {
                   <button className="btn bg-blue-500">pause</button>
                 </td>
                 <td>
-                  <button className="btn bg-blue-500">donators</button>
+                  <button
+                    onClick={() =>
+                      document.getElementById("my_modal_3").showModal()
+                    }
+                    className="btn bg-blue-500"
+                  >
+                    donators
+                  </button>
                 </td>
                 <th></th>
               </tr>
@@ -72,6 +83,19 @@ const MyCampaign = () => {
           </tbody>
         </table>
       </div>
+      {/* You can open the modal using document.getElementById('ID').showModal() method */}
+      <dialog id="my_modal_3" className="modal">
+        <div className="modal-box">
+          <form method="dialog">
+            {/* if there is a button in form, it will close the modal */}
+            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+              ✕
+            </button>
+          </form>
+          <h3 className="font-bold text-lg">Hello!</h3>
+          <p className="py-4">Press ESC key or click on ✕ button to close</p>
+        </div>
+      </dialog>
     </div>
   );
 };

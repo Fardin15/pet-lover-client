@@ -20,6 +20,7 @@ import AllDonation from "../Pages/Dashboard/AllDonations/AllDonation";
 import AdminRoute from "./AdminRoute";
 import UpdatePet from "../Pages/Dashboard/UpdatePet/UpdatePet";
 import PetDetails from "../Pages/PetDetails/PetDetails";
+import UpdateCampaign from "../Pages/Dashboard/UpdateCampaign/UpdateCampaign";
 
 const router = createBrowserRouter([
   {
@@ -130,9 +131,7 @@ const router = createBrowserRouter([
       },
       {
         path: "updateCampaign/:id",
-        element: <UpdatePet></UpdatePet>,
-        loader: ({ params }) =>
-          fetch(`http://localhost:5000/campaign/${params.id}`),
+        element: <UpdateCampaign></UpdateCampaign>,
       },
     ],
   },
