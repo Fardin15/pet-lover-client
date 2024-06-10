@@ -70,6 +70,7 @@ const CampaignDetails = () => {
             </button>
           </form>
           <form action="">
+            <h1 className="text-3xl text-center">Donation</h1>
             {/* donation amount */}
             <label className="form-control w-full">
               <div className="label">
