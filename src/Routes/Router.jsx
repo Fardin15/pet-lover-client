@@ -21,6 +21,7 @@ import AdminRoute from "./AdminRoute";
 import UpdatePet from "../Pages/Dashboard/UpdatePet/UpdatePet";
 import PetDetails from "../Pages/PetDetails/PetDetails";
 import UpdateCampaign from "../Pages/Dashboard/UpdateCampaign/UpdateCampaign";
+import CampaignDetails from "../Pages/Campaigns/CampaignDetails/CampaignDetails";
 
 const router = createBrowserRouter([
   {
@@ -56,6 +57,16 @@ const router = createBrowserRouter([
             <Campaigns></Campaigns>
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/campaign-details/:id",
+        element: (
+          <PrivateRoute>
+            <CampaignDetails></CampaignDetails>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/campaign-details/${params.id}`),
       },
       {
         path: "/login",
