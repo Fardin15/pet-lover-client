@@ -1,10 +1,8 @@
 import { NavLink, Outlet } from "react-router-dom";
-import useAuth from "../../Hooks/useAuth";
 import useAdmin from "../../Hooks/useAdmin";
 import { GiHamburgerMenu } from "react-icons/gi";
 
 const Dashboard = () => {
-  const { logOut } = useAuth();
   const [isAdmin] = useAdmin();
   const handleLinkClick = () => {
     const drawerToggle = document.getElementById("my-drawer-2");
@@ -34,7 +32,7 @@ const Dashboard = () => {
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
-          <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+          <ul className="menu p-4 w-60 min-h-full bg-base-200 text-base-content">
             {/* Sidebar content here */}
             {isAdmin ? (
               <>
@@ -142,11 +140,6 @@ const Dashboard = () => {
             <div className="divider"></div>
             <li>
               <NavLink to="/">Home</NavLink>
-            </li>
-            <li>
-              <button onClick={logOut} className="btn">
-                LogOut
-              </button>
             </li>
           </ul>
         </div>

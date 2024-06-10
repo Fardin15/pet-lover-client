@@ -1,7 +1,6 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
-import toast from "react-hot-toast";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const PetDetails = () => {
@@ -22,17 +21,15 @@ const PetDetails = () => {
     image,
   } = pet || [];
 
-  //   const handleButtonDisable = () => {
-  //     console.log("you can not adopt");
-  //     if (user?.email === email) {
-  //       return toast.error("you can not adopt");
-  //     }
-  //   };
-
   const handleForAdoption = async (e) => {
     e.preventDefault();
     if (user?.email === ownerEmail) {
-      return toast.error("You can't apply on your own post!!");
+      return Swal.fire({
+        icon: "success",
+        title: "Your can not adopt",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     }
     const form = e.target;
     const phone = form.phone.value;
@@ -45,7 +42,11 @@ const PetDetails = () => {
       image,
       name,
       petId: _id,
+      ownerName,
+      ownerEmail,
+      ownerLocation,
     };
+
     const petRes = await axiosSecure.post("/adoption", adoptionData);
     if (petRes.data.insertedId) {
       Swal.fire({
@@ -106,7 +107,7 @@ const PetDetails = () => {
                 >
                   open modal
                 </button>
-                <dialog id="my_modal_3" className="modal">
+                <dialog id="my_modal_3" className="modal ">
                   <div className="modal-box w-11/12 max-w-5xl">
                     <form method="dialog">
                       {/* if there is a button in form, it will close the modal */}

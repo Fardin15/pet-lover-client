@@ -14,13 +14,13 @@ const AddPet = () => {
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
   const onSubmit = async (data) => {
+    data.adoptionStatus = false;
     // post date
     const today = new Date();
     const day = today.getDate();
     const month = today.getMonth() + 1;
     const year = today.getFullYear();
     const date = `${day}/${month}/${year}`;
-    const adoptionStatus = false;
     // post image to get url
     const imageFile = { image: data.image[0] };
     const res = await axiosPublic.post(image_hosting_api, imageFile, {
@@ -41,7 +41,7 @@ const AddPet = () => {
         longDescription: data.longDescription,
         postDate: date,
         image: res.data.data.display_url,
-        adoptionStatus,
+        adoptionStatus: data.adoptionStatus,
       };
       // post pet in database
       const petRes = await axiosSecure.post("/pets", petDetails);

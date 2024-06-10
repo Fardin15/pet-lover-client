@@ -52,10 +52,11 @@ const MyAddedPets = () => {
           {/* head */}
           <thead>
             <tr>
-              <th>#</th>
-              <th>Pet Name</th>
-              <th>Category</th>
-              <th>Image</th>
+              <th className="text-xl font-medium text-black">#</th>
+              <th className="text-xl font-medium text-black">Pet Name</th>
+              <th className="text-xl font-medium text-black">Category</th>
+              <th className="text-xl font-medium text-black">Image</th>
+              <th className="text-xl font-medium text-black">Status</th>
               <th></th>
               <th></th>
               <th></th>
@@ -83,8 +84,11 @@ const MyAddedPets = () => {
                   </div>
                 </td>
                 <td>
+                  {pet.adoptionStatus === false ? "Not Adopted" : "Adopted"}
+                </td>
+                <td>
                   <Link to={`/dashboard/update/${pet._id}`}>
-                    <button className="btn">Update</button>
+                    <button className="btn bg-blue-500">Update</button>
                   </Link>
                 </td>
                 <td>
@@ -96,7 +100,7 @@ const MyAddedPets = () => {
                   </button>
                 </td>
                 <td>
-                  <button className="btn">Adopted</button>
+                  <button className="btn bg-green-500">Adopted</button>
                 </td>
 
                 <th></th>
