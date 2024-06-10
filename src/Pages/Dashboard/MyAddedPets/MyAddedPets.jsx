@@ -44,6 +44,25 @@ const MyAddedPets = () => {
     });
   };
 
+  // handleMakeAdopted
+  const handleMakeAdopted = (pet) => {
+    console.log(pet);
+    axiosSecure.patch(`/adoption/adopted/${pet._id}`).then((res) => {
+      console.log(res.data);
+      if (res.data.modifiedCount > 0) {
+        refetch();
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: `${pet?.name} is an Adopted Now.`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
+  };
+
+  console.log(myPets);
   return (
     <div>
       <h1 className="text-3xl text-center mb-10">My Added Pets</h1>
@@ -83,9 +102,7 @@ const MyAddedPets = () => {
                     </div>
                   </div>
                 </td>
-                <td>
-                  {pet.adoptionStatus === false ? "Not Adopted" : "Adopted"}
-                </td>
+                <td>{pet.adoptionStatus ? "Adopted" : "Not Adopted"}</td>
                 <td>
                   <Link to={`/dashboard/update/${pet._id}`}>
                     <button className="btn bg-blue-500">Update</button>
@@ -100,7 +117,16 @@ const MyAddedPets = () => {
                   </button>
                 </td>
                 <td>
-                  <button className="btn bg-green-500">Adopted</button>
+                  {pet.adoptionStatus ? (
+                    "Not available"
+                  ) : (
+                    <button
+                      onClick={() => handleMakeAdopted(pet)}
+                      className="btn bg-green-500"
+                    >
+                      Adopted
+                    </button>
+                  )}
                 </td>
 
                 <th></th>

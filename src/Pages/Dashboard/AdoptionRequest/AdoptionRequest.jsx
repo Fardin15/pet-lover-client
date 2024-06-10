@@ -42,6 +42,24 @@ const AdoptionRequest = () => {
       }
     });
   };
+
+  // handleMakeAdopted
+  const handleMakeAdopted = (pet) => {
+    console.log(pet);
+    axiosSecure.patch(`/reqAdoption/reqAdopted/${pet._id}`).then((res) => {
+      console.log(res.data);
+      if (res.data.modifiedCount > 0) {
+        refetch();
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: `Your requested has been accepted.`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
+  };
   return (
     <div>
       <h1 className="text-3xl text-center mb-10">
@@ -73,7 +91,16 @@ const AdoptionRequest = () => {
                   <p>{pet.requesterAddress}</p>
                 </td>
                 <td>
-                  <button className="btn bg-blue-500">Accept</button>
+                  {pet.adoptionStatus ? (
+                    "Not available"
+                  ) : (
+                    <button
+                      onClick={() => handleMakeAdopted(pet)}
+                      className="btn bg-green-500"
+                    >
+                      Adopted
+                    </button>
+                  )}
                 </td>
                 <td>
                   <button

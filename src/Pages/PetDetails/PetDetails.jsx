@@ -19,6 +19,7 @@ const PetDetails = () => {
     longDescription,
     postDate,
     image,
+    adoptionStatus,
   } = pet || [];
 
   const handleForAdoption = async (e) => {
@@ -45,6 +46,7 @@ const PetDetails = () => {
       ownerName,
       ownerEmail,
       ownerLocation,
+      adoptionStatus,
     };
 
     const petRes = await axiosSecure.post("/adoption", adoptionData);
@@ -100,6 +102,7 @@ const PetDetails = () => {
                 {/* modal button */}
                 {/* You can open the modal using document.getElementById('ID').showModal() method */}
                 <button
+                  disabled={user?.email === ownerEmail}
                   className="btn"
                   onClick={() =>
                     document.getElementById("my_modal_3").showModal()

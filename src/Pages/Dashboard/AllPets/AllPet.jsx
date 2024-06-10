@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const AllPet = () => {
   const axiosSecure = useAxiosSecure();
@@ -87,7 +88,9 @@ const AllPet = () => {
                   </div>
                 </td>
                 <td>
-                  <button className="btn">Update</button>
+                  <Link to={`/dashboard/update/${pet._id}`}>
+                    <button className="btn bg-blue-500">Update</button>
+                  </Link>
                 </td>
                 <td>
                   <button
@@ -98,7 +101,7 @@ const AllPet = () => {
                   </button>
                 </td>
                 <td>
-                  <button className="btn">Adopted</button>
+                  <button className="btn bg-green-500">Adopted</button>
                 </td>
 
                 <th></th>

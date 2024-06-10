@@ -99,11 +99,15 @@ const PetListing = () => {
                 <p>Age: {pet.age}</p>
               </div>
               <p>Location: {pet.location}</p>
-              <div className="card-actions">
-                <Link to={`/details/${pet._id}`}>
-                  <button className="btn btn-primary">Details</button>
-                </Link>
-              </div>
+              {pet.adoptionStatus ? (
+                "Adopted"
+              ) : (
+                <div className="card-actions">
+                  <Link to={`/details/${pet._id}`}>
+                    <button className="btn btn-primary">Details</button>
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         ))}
