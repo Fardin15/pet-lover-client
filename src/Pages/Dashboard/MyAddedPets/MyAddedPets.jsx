@@ -104,7 +104,7 @@ const MyAddedPets = () => {
                 </td>
                 <td>{pet.adoptionStatus ? "Adopted" : "Not Adopted"}</td>
                 <td>
-                  <Link to={`/dashboard/update/${pet._id}`}>
+                  <Link to={`/dashboard/updateCampaign/${pet._id}`}>
                     <button className="btn bg-blue-500">Update</button>
                   </Link>
                 </td>

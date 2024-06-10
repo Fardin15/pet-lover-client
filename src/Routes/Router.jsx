@@ -41,7 +41,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/details/:id",
-        element: <PetDetails></PetDetails>,
+        element: (
+          <PrivateRoute>
+            <PetDetails></PetDetails>
+          </PrivateRoute>
+        ),
         loader: ({ params }) => fetch(`http://localhost:5000/pet/${params.id}`),
       },
       {
@@ -123,6 +127,12 @@ const router = createBrowserRouter([
         path: "update/:id",
         element: <UpdatePet></UpdatePet>,
         loader: ({ params }) => fetch(`http://localhost:5000/pet/${params.id}`),
+      },
+      {
+        path: "updateCampaign/:id",
+        element: <UpdatePet></UpdatePet>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/campaign/${params.id}`),
       },
     ],
   },

@@ -1,10 +1,22 @@
 import { useForm } from "react-hook-form";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import { useQuery } from "@tanstack/react-query";
 
 const UpdatePet = () => {
+  const { id } = useParams();
+  const axiosSecure = useAxiosSecure();
+  const { data: myPet = {} } = useQuery({
+    queryKey: ["myPet"],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/pet/${id}`, {
+        withCredentials: true,
+      });
+      return res.data;
+    },
+  });
   const {
     name,
     age,
@@ -13,10 +25,9 @@ const UpdatePet = () => {
     longDescription,
     location,
     _id,
-  } = useLoaderData();
+  } = myPet || {};
   const { register, handleSubmit, reset } = useForm();
   const axiosPublic = useAxiosPublic();
-  const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
   // post date
   const today = new Date();
@@ -45,7 +56,7 @@ const UpdatePet = () => {
         postDate: date,
         image: res.data.data.display_url,
       };
-      const petRes = await axiosSecure.patch(`/pet/${_id}`, updatePet);
+      const petRes = await axiosSecure.put(`/pet/${_id}`, updatePet);
       if (petRes.data.modifiedCount > 0) {
         Swal.fire({
           position: "top-end",
@@ -68,7 +79,7 @@ const UpdatePet = () => {
             {/* Pet name */}
             <label className="form-control w-full">
               <div className="label">
-                <span className="label-text">Pet Name*</span>
+                <span className="label-text">Pet Name{}*</span>
               </div>
               <input
                 type="text"
@@ -163,7 +174,9 @@ const UpdatePet = () => {
               className="file-input w-full max-w-xs"
             />
           </div>
-          <button className="btn text-white bg-[#835D23]">Update Pet</button>
+          <button type="submit" className="btn text-white bg-[#835D23]">
+            Update Pet
+          </button>
         </form>
       </div>
     </div>
