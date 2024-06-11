@@ -46,6 +46,24 @@ const AllPet = () => {
     });
   };
 
+  // handleMakeAdopted
+  const handleMakeAdopted = (pet) => {
+    console.log(pet);
+    axiosSecure.patch(`/adoption/adopted/${pet._id}`).then((res) => {
+      console.log(res.data);
+      if (res.data.modifiedCount > 0) {
+        refetch();
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: `${pet?.name} is an Adopted Now.`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
+  };
+
   if (isPending) {
     <span className="loading loading-infinity loading-lg text-center"></span>;
   }
@@ -101,7 +119,16 @@ const AllPet = () => {
                   </button>
                 </td>
                 <td>
-                  <button className="btn bg-green-500">Adopted</button>
+                  {pet.adoptionStatus ? (
+                    "Not available"
+                  ) : (
+                    <button
+                      onClick={() => handleMakeAdopted(pet)}
+                      className="btn bg-green-500"
+                    >
+                      Adopted
+                    </button>
+                  )}
                 </td>
 
                 <th></th>

@@ -137,12 +137,20 @@ const router = createBrowserRouter([
       },
       {
         path: "update/:id",
-        element: <UpdatePet></UpdatePet>,
+        element: (
+          <PrivateRoute>
+            <UpdatePet></UpdatePet>
+          </PrivateRoute>
+        ),
         loader: ({ params }) => fetch(`http://localhost:5000/pet/${params.id}`),
       },
       {
         path: "updateCampaign/:id",
-        element: <UpdateCampaign></UpdateCampaign>,
+        element: (
+          <PrivateRoute>
+            <UpdateCampaign></UpdateCampaign>
+          </PrivateRoute>
+        ),
       },
     ],
   },
