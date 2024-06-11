@@ -14,7 +14,6 @@ const CreateCampaign = () => {
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
   const onSubmit = async (data) => {
-    console.log(data);
     // post image to get url
     const imageFile = { image: data.image[0] };
     const res = await axiosPublic.post(image_hosting_api, imageFile, {
@@ -34,7 +33,6 @@ const CreateCampaign = () => {
         deadline: data.deadline,
         image: res.data.data.display_url,
       };
-      console.log(createCampaignData);
       // post campaign in database
       const campaignRes = await axiosSecure.post(
         "/campaign",

@@ -1,7 +1,11 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import CheckoutForm from "./CheckoutForm";
 
+const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_PK);
 const CampaignDetails = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
@@ -72,7 +76,7 @@ const CampaignDetails = () => {
           <form action="">
             <h1 className="text-3xl text-center">Donation</h1>
             {/* donation amount */}
-            <label className="form-control w-full">
+            <label className="form-control w-full mb-6">
               <div className="label">
                 <span className="label-text">Donation Amount</span>
               </div>
@@ -83,6 +87,11 @@ const CampaignDetails = () => {
                 className="input input-bordered w-full"
               />
             </label>
+            <div>
+              <Elements stripe={stripePromise}>
+                <CheckoutForm></CheckoutForm>
+              </Elements>
+            </div>
           </form>
         </div>
       </dialog>
