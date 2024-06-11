@@ -1,8 +1,36 @@
-# React + Vite
+## Site name: Pet Lover
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Site type: Online Pet Adoption Site
 
-Currently, two official plugins are available:
+Live Link: (https://pet-lover-9674e.web.app),(https://pet-lover-9674e.firebaseapp.com)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+#### Features and Characteristics :
+
+- Friendly to the users.
+- Maintain security for the industries.
+- User can understand need of pets and how to be friendly with our pets
+- Manage The Navbar feiendly to users, so that user can go to the routes using by navbar.
+- Used login and register form for the user to have better experience with the sites.
+- **User Authentication**: Secure user authentication using Firebase Authentication.
+- **Real-time Database**: Store pets and campaigns data and user data in MongoDB using Firebase.
+- **React Router Dom**: Implement client-side routing for a single-page application experience.
+- **Axios**: Handle HTTP requests to interact with the backend server.
+- **React Hot Toast**: Display toast notifications for user actions and alerts.
+- **Sweet Alert 2**: Show beautiful and customizable alerts for user interactions.
+- **React Icons & Library Icons & Symbols**: Utilize a wide range of icons and symbols to enhance UI/UX.
+- **React Datepicker**: Provide a user-friendly datepicker for selecting dates.
+
+## Used package
+
+- [Vite](https://vitejs.dev/) - Frontend build tool
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+- [DaisyUI](https://daisyui.com/) - Tailwind CSS component library
+- [MongoDB](https://www.mongodb.com/) - NoSQL database
+- [AOS](https://michalsnik.github.io/aos/) - Animate On Scroll Library
+- [Firebase](https://firebase.google.com/) - Backend as a Service (BaaS) platform
+
+## Usage
+
+- **Pet Adopt**: Sign up for an account, browse pet listing, search for pets, and apply for adoption.
+- **User**: User can give their pet for adoption and create campaign for pets..also they can adopt pets from others on this sites.
+- **Admin**: Admin can manage all the routes as a user can do.also admin can see all of the users,all pets,all donations.

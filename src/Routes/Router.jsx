@@ -48,7 +48,8 @@ const router = createBrowserRouter([
             <PetDetails></PetDetails>
           </PrivateRoute>
         ),
-        loader: ({ params }) => fetch(`http://localhost:5000/pet/${params.id}`),
+        loader: ({ params }) =>
+          fetch(`https://pet-lover-server.vercel.app/pet/${params.id}`),
       },
       {
         path: "/campaigns",
@@ -66,7 +67,9 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/campaign-details/${params.id}`),
+          fetch(
+            `https://pet-lover-server.vercel.app/campaign-details/${params.id}`
+          ),
       },
       {
         path: "/login",
@@ -142,7 +145,8 @@ const router = createBrowserRouter([
             <UpdatePet></UpdatePet>
           </PrivateRoute>
         ),
-        loader: ({ params }) => fetch(`http://localhost:5000/pet/${params.id}`),
+        loader: ({ params }) =>
+          fetch(`https://pet-lover-server.vercel.app/pet/${params.id}`),
       },
       {
         path: "updateCampaign/:id",
