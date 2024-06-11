@@ -38,7 +38,6 @@ const CategorySection = () => {
       <div className="flex justify-center mt-8">
         <select
           value={selectedCategory}
-          defaultValue={"default"}
           className="select select-bordered w-52"
           onChange={handleCategoryChange}
         >
