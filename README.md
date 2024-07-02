@@ -6,6 +6,18 @@ Live Link: (https://pet-lover-9674e.web.app),(https://pet-lover-9674e.firebaseap
 
 Server GitHub: https://github.com/Fardin15/pet-lover-server
 
+## Cloning the Project
+
+To clone the project, follow these steps:
+
+1. Open your terminal or command line interface.
+2. Navigate to the directory where you want to clone the project.
+3. Run the following command:
+
+   bash
+   
+   ``git clone https://github.com/Fardin15/pet-lover-client.git``
+
 #### Features and Characteristics :
 
 - Friendly to the users.
