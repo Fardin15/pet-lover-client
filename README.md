@@ -2,7 +2,7 @@
 
 ### Site type: Online Pet Adoption Site
 
-Live Link: (https://pet-lover-9674e.web.app),(https://pet-lover-9674e.firebaseapp.com)
+Live Link: https://pet-lover-9674e.web.app
 
 Server GitHub: https://github.com/Fardin15/pet-lover-server
 
